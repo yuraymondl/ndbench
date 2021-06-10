@@ -18,6 +18,8 @@ package com.netflix.ndbench.plugin.configs;
 
 import com.netflix.archaius.api.annotations.DefaultValue;
 import com.netflix.archaius.api.annotations.PropertyName;
+import java.util.List;
+import java.util.Arrays;
 
 public interface CassandraConfigurationBase {
     @PropertyName(name = "cluster")
@@ -35,7 +37,8 @@ public interface CassandraConfigurationBase {
     Integer getHostPort();
 
     @PropertyName(name = "keyspace")
-    @DefaultValue("perftest")
+    @DefaultValue("ndbench")
+    //@DefaultValue("perftest")
     String getKeyspace();
 
     @DefaultValue("test1")
@@ -44,6 +47,14 @@ public interface CassandraConfigurationBase {
     @PropertyName(name = "cfname2")
     @DefaultValue("test2")
     String getCfname2();
+
+    @PropertyName(name = "cfname3")
+    @DefaultValue("test3")
+    String getCfname3();
+
+    @PropertyName(name = "cfname4")
+    @DefaultValue("test4")
+    String getCfname4();
 
     @PropertyName(name = "connections")
     @DefaultValue("2")
@@ -78,4 +89,13 @@ public interface CassandraConfigurationBase {
 
     @DefaultValue("false")
     Boolean getAllowBetaProtocol();
+
+    @PropertyName(name = "hostList")
+    // Ignore PMD java rule as inapplicable because we're setting an overridable default
+    @SuppressWarnings("PMD.AvoidUsingHardCodedIP")
+    // Default to running locally against local C* host
+    // May not be necessary beause the driver default is this value anyways
+    default List<String> getHostList() {
+        return Arrays.asList("127.0.0.1:9042");
+    }
 }

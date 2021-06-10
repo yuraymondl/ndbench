@@ -47,4 +47,14 @@ public class CassModule extends AbstractModule {
     ElassandraConfiguration getElassandraConfiguration(ConfigProxyFactory factory) {
         return factory.newProxy(ElassandraConfiguration.class);
     }
+
+    @Provides
+    CassandraFenris1Configuration getCassandraFenris1Configuration(ConfigProxyFactory factory) {
+        return factory.newProxy(CassandraFenris1Configuration.class);
+    }
+
+    @Provides
+    CassandraFenris2Configuration getCassandraFenris2Configuration(ConfigProxyFactory factory) {
+        return factory.newProxy(CassandraFenris2Configuration.class);
+    }
 }

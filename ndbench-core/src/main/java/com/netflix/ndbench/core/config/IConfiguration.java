@@ -36,6 +36,7 @@ public interface IConfiguration {
     @DefaultValue("100")
     int getNumValues();
 
+    @PropertyName(name = "dataSize")
     @DefaultValue("128")
     int getDataSize();
 

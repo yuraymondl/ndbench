@@ -7,8 +7,8 @@ import com.datastax.oss.driver.api.core.metadata.Node;
 import com.netflix.ndbench.api.plugin.DataGenerator;
 import com.netflix.ndbench.api.plugin.NdBenchClient;
 import com.netflix.ndbench.core.config.IConfiguration;
-import com.netflix.ndbench.plugin.configs.CassandraConfigurationBase;
 //import com.netflix.ndbench.plugin.configs.CassandraFenrisConfiguration;
+import com.netflix.ndbench.plugin.configs.CassandraConfigurationBase;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class CJavaDriverBasePlugin<Config extends CassandraConfigurationBase> implements NdBenchClient {
-//public abstract class CJavaDriverBasePlugin<Config extends CassandraFenrisConfiguration> implements NdBenchClient {
-    private static final Logger logger = LoggerFactory.getLogger(com.netflix.ndbench.plugin.cass.CJavaDriverBasePlugin.class);
+public abstract class CJavaDriverBaseFenrisPlugin<Config extends CassandraConfigurationBase> implements NdBenchClient {
+//public abstract class CJavaDriverBaseFenrisPlugin<Config extends CassandraFenrisConfiguration> implements NdBenchClient {
+    private static final Logger logger = LoggerFactory.getLogger(com.netflix.ndbench.plugin.datastax4.CJavaDriverBaseFenrisPlugin.class);
     protected static final String ResultOK = "Ok";
     protected static final String ResutlFailed = "Failed";
     protected static final String CacheMiss = null;
@@ -31,6 +31,9 @@ public abstract class CJavaDriverBasePlugin<Config extends CassandraConfiguratio
     protected volatile String sessionName;
     protected volatile String keyspaceName;
     protected volatile String tableName;
+    protected volatile String tableName2;
+    protected volatile String tableName3;
+    protected volatile String tableName4;
     protected volatile String username;
     protected volatile String password;
     protected volatile List<String> sessionContactPoints;
@@ -39,8 +42,11 @@ public abstract class CJavaDriverBasePlugin<Config extends CassandraConfiguratio
     protected volatile CqlSession session;
     protected volatile PreparedStatement readPstmt;
     protected volatile PreparedStatement writePstmt;
+    protected volatile PreparedStatement writePstmt2;
+    protected volatile PreparedStatement writePstmt3;
+    protected volatile PreparedStatement writePstmt4;
 
-    protected CJavaDriverBasePlugin(
+    protected CJavaDriverBaseFenrisPlugin(
             CassJavaDriverManager cassJavaDriverManager,
             IConfiguration ndbConfig,
             Config config) {
@@ -57,6 +63,9 @@ public abstract class CJavaDriverBasePlugin<Config extends CassandraConfiguratio
         this.port = config.getHostPort();
         this.keyspaceName = config.getKeyspace();
         this.tableName = config.getCfname();
+        this.tableName2 = config.getCfname2();
+        this.tableName3 = config.getCfname3();
+        this.tableName4 = config.getCfname4();
         this.connections = config.getConnections();
         this.username = config.getUsername();
         this.password = config.getPassword();
